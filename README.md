@@ -17,7 +17,7 @@ graph LR;
   api-->redis
   api-->worker
   keda-->api
-  keda--scales to zero-->worker
+  keda--"scales to zero"-->worker
   operator--configures-->api
   operator--deploys-->worker
   operator--monitors-->config
