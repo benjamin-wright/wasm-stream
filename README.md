@@ -7,13 +7,18 @@ trying out wasm-based workloads with an event-based interface for responding to 
 graph LR;
   internet["Internet"]
   api["API Gateway"]
-  redis["Redis Store"]
+  operator["Gateway Operator"]
+  redis[(Redis Store)]
   worker["WASM Workloads"]
   keda["KEDA"]
+  config["Workload Config"]
 
   internet-->api
   api-->redis
   api-->worker
   keda-->api
   keda-->worker
+  operator--configures-->api
+  operator--deploys-->worker
+  operator--monitors-->config
 ```
