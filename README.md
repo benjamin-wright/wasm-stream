@@ -9,16 +9,22 @@ graph LR;
   api["API Gateway"]
   operator["Gateway Operator"]
   redis[(Redis Store)]
+  nats[(NATS)]
   worker["WASM Workloads"]
   keda["KEDA"]
   config["Workload Config"]
+  crud["CRUD Service"]
+  rdb[(RDB)]
 
   internet-->api
-  api-->redis
-  api-->worker
-  keda-->api
+  api--"user sessions"-->redis
+  api-->nats
+  nats-->worker
+  keda-->nats
   keda--"scales to zero"-->worker
   operator--configures-->api
   operator--deploys-->worker
   operator--monitors-->config
+  worker-->crud
+  crud-->rdb
 ```
