@@ -19,12 +19,14 @@ graph LR;
   internet-->api
   api--"user sessions"-->redis
   api-->nats
-  nats-->worker
+  nats<-->worker
   keda-->nats
   keda--"scales to zero"-->worker
+  keda--"scales to one"-->crud
   operator--configures-->api
   operator--deploys-->worker
+  operator--deploys-->crud
   operator--monitors-->config
-  worker-->crud
+  nats<-->crud
   crud-->rdb
 ```
